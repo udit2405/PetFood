@@ -1,0 +1,2999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="NUZZLE — Premium nutrition for the family member who never asks. Vet-formulated, ethically sourced food for dogs and cats." />
+  <meta name="theme-color" content="#FAF6F1" />
+  <title>NUZZLE — Feed Them Like Family</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================
+       NUZZLE — Design System
+       ===================================================== */
+    :root {
+      /* Palette */
+      --cream: #FAF6F1;
+      --cream-deep: #F0E6D6;
+      --linen: #EFE6D6;
+      --tan: #E8C9A8;
+      --peach: #F4D5BC;
+      --terracotta: #C97B5A;
+      --clay: #B86A4D;
+      --brown: #6B4F3A;
+      --brown-deep: #3E2A1F;
+      --sage: #A8B89F;
+      --moss: #6F8068;
+      --gold: #C9A66B;
+      --ink: #2A1F18;
+      --soft: #FFFDF9;
+
+      /* Typography */
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Scale */
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --radius-pill: 999px;
+
+      /* Shadows — soft neumorphism */
+      --shadow-soft: 0 1px 2px rgba(62, 42, 31, 0.04), 0 8px 24px rgba(62, 42, 31, 0.06);
+      --shadow-medium: 0 2px 4px rgba(62, 42, 31, 0.06), 0 16px 40px rgba(62, 42, 31, 0.10);
+      --shadow-deep: 0 4px 8px rgba(62, 42, 31, 0.08), 0 32px 80px rgba(62, 42, 31, 0.16);
+      --shadow-glow: 0 0 60px rgba(201, 123, 90, 0.18);
+
+      /* Glass */
+      --glass-bg: rgba(255, 253, 249, 0.72);
+      --glass-border: rgba(255, 253, 249, 0.6);
+      --glass-blur: blur(18px) saturate(180%);
+
+      /* Easing */
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.55;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Cursor — soft custom dot */
+    .cursor-dot, .cursor-ring {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      top: 0; left: 0;
+      transform: translate(-50%, -50%);
+      will-change: transform;
+    }
+    .cursor-dot {
+      width: 6px; height: 6px;
+      background: var(--brown-deep);
+      border-radius: 50%;
+      transition: transform 0.18s var(--ease-out), opacity 0.2s ease;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(62, 42, 31, 0.35);
+      border-radius: 50%;
+      transition: transform 0.32s var(--ease-out), width 0.32s var(--ease-out), height 0.32s var(--ease-out), border-color 0.3s ease, background 0.3s ease;
+    }
+    .cursor-ring.hover {
+      width: 64px; height: 64px;
+      background: rgba(201, 123, 90, 0.12);
+      border-color: rgba(201, 123, 90, 0.5);
+    }
+
+    @media (max-width: 900px) {
+      body { cursor: auto; }
+      .cursor-dot, .cursor-ring { display: none; }
+    }
+
+    /* Selection */
+    ::selection {
+      background: var(--terracotta);
+      color: var(--cream);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--tan); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--terracotta); }
+
+    /* Typography */
+    .display {
+      font-family: var(--font-display);
+      font-weight: 350;
+      font-style: normal;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      font-variation-settings: "opsz" 144, "SOFT" 100;
+    }
+
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font-family: inherit; cursor: none; border: none; background: none; }
+
+    /* =====================================================
+       NAV
+       ===================================================== */
+    .nav {
+      position: fixed;
+      top: 16px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      width: calc(100% - 32px);
+      max-width: 1320px;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-soft);
+      transition: all 0.4s var(--ease-out);
+    }
+
+    .nav.scrolled {
+      box-shadow: var(--shadow-medium);
+      background: rgba(255, 253, 249, 0.86);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.2rem;
+      letter-spacing: 0.18em;
+      color: var(--brown-deep);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .dot {
+      width: 8px; height: 8px;
+      background: var(--terracotta);
+      border-radius: 50%;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.6; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+    .nav-links a {
+      color: var(--brown);
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--terracotta);
+      transition: width 0.4s var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--brown-deep); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .nav-cart {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--cream-deep);
+      display: grid;
+      place-items: center;
+      position: relative;
+      transition: transform 0.3s var(--ease-spring), background 0.3s ease;
+    }
+    .nav-cart:hover { background: var(--peach); transform: rotate(-8deg); }
+    .nav-cart-count {
+      position: absolute;
+      top: -4px; right: -4px;
+      width: 18px; height: 18px;
+      background: var(--terracotta);
+      color: var(--cream);
+      font-size: 0.65rem;
+      font-weight: 700;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--cream);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+
+    /* =====================================================
+       BUTTONS
+       ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 28px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      border-radius: var(--radius-pill);
+      transition: all 0.4s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+      will-change: transform;
+    }
+
+    .btn-primary {
+      background: var(--brown-deep);
+      color: var(--cream);
+      box-shadow: 0 12px 32px rgba(62, 42, 31, 0.22);
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--terracotta), var(--clay));
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out);
+      border-radius: inherit;
+    }
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(201, 123, 90, 0.32); }
+    .btn-primary:hover::before { opacity: 1; }
+
+    .btn-ghost {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      color: var(--brown-deep);
+      border: 1px solid rgba(62, 42, 31, 0.12);
+    }
+    .btn-ghost:hover { background: var(--cream-deep); border-color: rgba(62, 42, 31, 0.22); transform: translateY(-2px); }
+
+    .btn-arrow {
+      display: inline-block;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .btn:hover .btn-arrow { transform: translateX(4px); }
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      padding: 120px 24px 80px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(244, 213, 188, 0.55) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 90%, rgba(201, 166, 107, 0.18) 0%, transparent 50%),
+        var(--cream);
+    }
+
+    .hero-canvas {
+      position: absolute;
+      top: 0; right: 0;
+      width: 60%; height: 100%;
+      z-index: 1;
+    }
+
+    @media (max-width: 980px) {
+      .hero-canvas {
+        position: relative;
+        width: 100%;
+        height: 50vh;
+        order: -1;
+      }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; }
+    }
+
+    .hero-content { max-width: 620px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 28px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--brown);
+    }
+    .hero-eyebrow .badge {
+      width: 6px; height: 6px;
+      background: var(--moss);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 320;
+      font-size: clamp(2.6rem, 6.5vw, 5.4rem);
+      letter-spacing: -0.025em;
+      line-height: 0.98;
+      color: var(--brown-deep);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--terracotta);
+      font-variation-settings: "opsz" 144, "SOFT" 100;
+    }
+
+    .hero h1 .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: heroReveal 1s var(--ease-out) forwards;
+    }
+    .hero h1 .word:nth-child(1) { animation-delay: 0.15s; }
+    .hero h1 .word:nth-child(2) { animation-delay: 0.27s; }
+    .hero h1 .word:nth-child(3) { animation-delay: 0.39s; }
+    .hero h1 .word:nth-child(4) { animation-delay: 0.51s; }
+    .hero h1 .word:nth-child(5) { animation-delay: 0.63s; }
+    .hero h1 .word:nth-child(6) { animation-delay: 0.75s; }
+    @keyframes heroReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 1.3vw, 1.18rem);
+      color: var(--brown);
+      margin-bottom: 36px;
+      max-width: 520px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: heroReveal 1s var(--ease-out) 0.95s forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: heroReveal 1s var(--ease-out) 1.1s forwards;
+    }
+
+    .hero-stats {
+      margin-top: 56px;
+      display: flex;
+      gap: 40px;
+      opacity: 0;
+      animation: heroReveal 1s var(--ease-out) 1.3s forwards;
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--brown-deep);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+    .hero-stat-label {
+      font-size: 0.78rem;
+      color: var(--brown);
+      letter-spacing: 0.04em;
+    }
+
+    /* Floating UI badges */
+    .hero-badge {
+      position: absolute;
+      z-index: 3;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-medium);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-badge.b1 { top: 18%; right: 12%; animation-delay: 0s; }
+    .hero-badge.b2 { bottom: 22%; right: 18%; animation-delay: 1.5s; }
+    .hero-badge.b3 { top: 50%; right: 4%; animation-delay: 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .hero-badge .icon {
+      width: 36px; height: 36px;
+      background: var(--peach);
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+    }
+    .hero-badge .icon.green { background: rgba(168, 184, 159, 0.4); }
+    .hero-badge .icon.gold { background: rgba(201, 166, 107, 0.3); }
+
+    @media (max-width: 980px) {
+      .hero-badge { display: none; }
+    }
+
+    /* Scroll indicator */
+    .scroll-cue {
+      position: absolute;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: heroReveal 1s var(--ease-out) 1.6s forwards;
+    }
+    .scroll-cue-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--brown));
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-cue-line::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 50%;
+      background: var(--brown-deep);
+      animation: scrollDown 2.5s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(200%); }
+    }
+    .scroll-cue-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    /* =====================================================
+       SECTIONS — base
+       ===================================================== */
+    .section {
+      padding: 140px 24px;
+      position: relative;
+    }
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 80px;
+    }
+    .section-head.center {
+      margin-left: auto; margin-right: auto;
+      text-align: center;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 3.6rem);
+      font-weight: 320;
+      color: var(--brown-deep);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin: 16px 0 20px;
+    }
+    .section-title em {
+      font-style: italic;
+      color: var(--terracotta);
+      font-weight: 360;
+    }
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--brown);
+      max-width: 540px;
+      line-height: 1.65;
+    }
+    .section-head.center .section-sub { margin-left: auto; margin-right: auto; }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =====================================================
+       WHY — Story scroll
+       ===================================================== */
+    .why { background: linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    @media (max-width: 980px) { .why-grid { grid-template-columns: 1fr; } }
+
+    .why-card {
+      background: var(--soft);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+    }
+    .why-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-deep);
+    }
+    .why-card-num {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-style: italic;
+      font-weight: 280;
+      color: var(--peach);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .why-card h3 {
+      font-family: var(--font-display);
+      font-weight: 380;
+      font-size: 1.6rem;
+      letter-spacing: -0.01em;
+      color: var(--brown-deep);
+      margin: 18px 0 10px;
+    }
+    .why-card p {
+      color: var(--brown);
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+
+    .why-card .tag {
+      position: absolute;
+      top: 24px; right: 24px;
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      background: var(--cream-deep);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+    }
+
+    /* Transformation */
+    .transformation {
+      margin-top: 100px;
+      background: var(--brown-deep);
+      border-radius: var(--radius-lg);
+      padding: 80px 60px;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+    .transformation::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201, 123, 90, 0.4), transparent 60%);
+      border-radius: 50%;
+    }
+    .transformation-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+    }
+    @media (max-width: 768px) { .transformation-grid { grid-template-columns: 1fr; } }
+
+    .pet-state {
+      text-align: center;
+      padding: 30px;
+    }
+    .pet-state-orb {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background: rgba(255, 253, 249, 0.06);
+      display: grid;
+      place-items: center;
+      font-size: 4rem;
+      border: 1px solid rgba(255, 253, 249, 0.12);
+      transition: all 0.6s var(--ease-out);
+    }
+    .pet-state.before .pet-state-orb { filter: grayscale(0.6); opacity: 0.7; }
+    .pet-state.after .pet-state-orb {
+      background: linear-gradient(135deg, rgba(201, 123, 90, 0.3), rgba(244, 213, 188, 0.2));
+      border-color: rgba(244, 213, 188, 0.4);
+      box-shadow: 0 0 80px rgba(201, 123, 90, 0.3);
+    }
+    .pet-state h4 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 380;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .pet-state-meta {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+    .arrow-icon {
+      font-size: 2rem;
+      opacity: 0.5;
+      animation: arrowPulse 2s ease-in-out infinite;
+    }
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); opacity: 0.5; }
+      50% { transform: translateX(8px); opacity: 1; }
+    }
+
+    /* =====================================================
+       PRODUCTS
+       ===================================================== */
+    .products { background: var(--cream); }
+
+    .products-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      background: var(--cream-deep);
+      padding: 6px;
+      border-radius: var(--radius-pill);
+    }
+    .filter-bar button {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--brown);
+      border-radius: var(--radius-pill);
+      transition: all 0.3s ease;
+    }
+    .filter-bar button.active {
+      background: var(--brown-deep);
+      color: var(--cream);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    @media (max-width: 980px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .product-grid { grid-template-columns: 1fr; } }
+
+    .product-card {
+      background: var(--soft);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+      box-shadow: var(--shadow-soft);
+      cursor: none;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-deep);
+    }
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 240px;
+      background: radial-gradient(ellipse at top, var(--peach) 0%, transparent 65%);
+      opacity: 0.5;
+      transition: opacity 0.5s ease;
+    }
+    .product-card:hover::before { opacity: 0.9; }
+
+    .product-image {
+      position: relative;
+      height: 240px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 24px;
+      perspective: 1000px;
+    }
+    .product-bag {
+      width: 140px;
+      height: 200px;
+      border-radius: 18px 18px 16px 16px;
+      position: relative;
+      transition: transform 0.7s var(--ease-spring);
+      transform-style: preserve-3d;
+      box-shadow:
+        0 20px 40px rgba(62, 42, 31, 0.18),
+        inset 0 -30px 30px rgba(0, 0, 0, 0.08),
+        inset 6px 0 12px rgba(255, 255, 255, 0.18);
+    }
+    .product-card:hover .product-bag {
+      transform: rotateY(-12deg) rotateX(6deg) translateY(-10px);
+    }
+
+    .product-bag.ocean { background: linear-gradient(155deg, #6F8B9F, #3F5060); }
+    .product-bag.forest { background: linear-gradient(155deg, #6F8068, #3D4A37); }
+    .product-bag.sunset { background: linear-gradient(155deg, #C97B5A, #8A4A33); }
+    .product-bag.cream { background: linear-gradient(155deg, #E8C9A8, #B89373); }
+    .product-bag.berry { background: linear-gradient(155deg, #A35F6F, #6B3848); }
+    .product-bag.golden { background: linear-gradient(155deg, #C9A66B, #8C6E3F); }
+
+    .product-bag::before {
+      content: '';
+      position: absolute;
+      top: -8px; left: 20px; right: 20px;
+      height: 16px;
+      background: inherit;
+      border-radius: 8px 8px 4px 4px;
+      filter: brightness(0.85);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .product-bag-label {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--cream);
+      text-align: center;
+      width: 100%;
+      padding: 0 16px;
+    }
+    .product-bag-label .brand {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      margin-bottom: 6px;
+    }
+    .product-bag-label .line {
+      width: 30px; height: 1px;
+      background: rgba(255,255,255,0.5);
+      margin: 8px auto;
+    }
+    .product-bag-label .variant {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+    .product-bag-label .weight {
+      margin-top: 60px;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      opacity: 0.7;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 24px; left: 24px;
+      padding: 6px 12px;
+      background: var(--soft);
+      border-radius: var(--radius-pill);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brown-deep);
+      box-shadow: var(--shadow-soft);
+      z-index: 2;
+    }
+    .product-tag.new { background: var(--moss); color: var(--cream); }
+    .product-tag.best { background: var(--gold); color: var(--brown-deep); }
+
+    .product-info {
+      position: relative;
+      z-index: 1;
+    }
+    .product-meta {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .product-meta span {
+      font-size: 0.72rem;
+      color: var(--brown);
+      padding: 4px 10px;
+      background: var(--cream-deep);
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.04em;
+    }
+    .product-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 380;
+      margin-bottom: 6px;
+      color: var(--brown-deep);
+    }
+    .product-desc {
+      font-size: 0.9rem;
+      color: var(--brown);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    .product-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--brown-deep);
+    }
+    .product-price small {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--brown);
+      margin-left: 4px;
+      font-family: var(--font-body);
+    }
+    .add-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--brown-deep);
+      color: var(--cream);
+      display: grid;
+      place-items: center;
+      transition: all 0.4s var(--ease-spring);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+    .product-card:hover .add-btn {
+      background: var(--terracotta);
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    /* =====================================================
+       INGREDIENTS
+       ===================================================== */
+    .ingredients {
+      background: var(--brown-deep);
+      color: var(--cream);
+    }
+    .ingredients .section-title { color: var(--cream); }
+    .ingredients .section-title em { color: var(--peach); }
+    .ingredients .section-sub { color: rgba(250, 246, 241, 0.75); }
+    .ingredients .eyebrow { color: var(--peach); }
+
+    .ing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 980px) { .ing-grid { grid-template-columns: 1fr; } }
+
+    .ing-stage {
+      position: relative;
+      aspect-ratio: 1;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .ing-orb {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, var(--terracotta), var(--clay) 60%, var(--brown));
+      box-shadow:
+        0 40px 100px rgba(201, 123, 90, 0.4),
+        inset -20px -30px 60px rgba(0, 0, 0, 0.3),
+        inset 20px 30px 60px rgba(255, 255, 255, 0.1);
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(-50%, -50%); }
+      50% { transform: translate(-50%, -55%); }
+    }
+
+    .ing-orb::before {
+      content: '';
+      position: absolute;
+      top: 15%; left: 18%;
+      width: 24%; height: 18%;
+      background: rgba(255, 253, 249, 0.4);
+      border-radius: 50%;
+      filter: blur(6px);
+    }
+
+    .ing-pin {
+      position: absolute;
+      cursor: none;
+      transition: transform 0.4s var(--ease-spring);
+    }
+    .ing-pin:hover { transform: scale(1.15); }
+    .ing-pin .dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--cream);
+      box-shadow: 0 0 0 4px rgba(250, 246, 241, 0.15), 0 0 20px var(--peach);
+      animation: pinPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pinPulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(250, 246, 241, 0.15), 0 0 20px var(--peach); }
+      50% { box-shadow: 0 0 0 10px rgba(250, 246, 241, 0.05), 0 0 40px var(--peach); }
+    }
+
+    .ing-pin .label {
+      position: absolute;
+      left: 24px;
+      top: -8px;
+      white-space: nowrap;
+      background: var(--cream);
+      color: var(--brown-deep);
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-medium);
+    }
+
+    .ing-pin.p1 { top: 18%; left: 32%; }
+    .ing-pin.p2 { top: 38%; right: 20%; }
+    .ing-pin.p2 .label { left: auto; right: 24px; }
+    .ing-pin.p3 { bottom: 30%; left: 22%; }
+    .ing-pin.p4 { bottom: 18%; right: 30%; }
+    .ing-pin.p4 .label { left: auto; right: 24px; }
+
+    .ing-list { list-style: none; }
+    .ing-item {
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(250, 246, 241, 0.1);
+      display: grid;
+      grid-template-columns: 60px 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+    .ing-item:last-child { border-bottom: none; }
+    .ing-item-icon {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      background: rgba(244, 213, 188, 0.15);
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+    }
+    .ing-item-text h4 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .ing-item-text p {
+      font-size: 0.9rem;
+      color: rgba(250, 246, 241, 0.65);
+    }
+    .ing-item-pct {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 380;
+      color: var(--peach);
+      font-style: italic;
+    }
+
+    /* Comparison */
+    .vs-row {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 720px;
+    }
+    .vs-card {
+      padding: 24px;
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(8px);
+    }
+    .vs-card.real {
+      background: rgba(168, 184, 159, 0.18);
+      border: 1px solid rgba(168, 184, 159, 0.3);
+    }
+    .vs-card.fillers {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.6;
+    }
+    .vs-card-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .vs-card.real .vs-card-title { color: var(--sage); }
+    .vs-card-list { list-style: none; font-size: 0.9rem; }
+    .vs-card-list li { padding: 4px 0; }
+    .vs-card-list li::before {
+      content: '✓';
+      margin-right: 8px;
+      color: var(--sage);
+      font-weight: 700;
+    }
+    .vs-card.fillers .vs-card-list li::before { content: '✗'; color: rgba(255,255,255,0.4); }
+
+    /* =====================================================
+       TESTIMONIALS
+       ===================================================== */
+    .testimonials { background: var(--cream-deep); }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    @media (max-width: 980px) { .testi-grid { grid-template-columns: 1fr; } }
+
+    .testi-card {
+      background: var(--soft);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-soft);
+      transition: all 0.5s var(--ease-out);
+      position: relative;
+    }
+    .testi-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-deep);
+    }
+    .testi-quote-mark {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-style: italic;
+      line-height: 1;
+      color: var(--peach);
+      margin-bottom: 8px;
+    }
+    .testi-text {
+      font-size: 1.02rem;
+      color: var(--brown-deep);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .testi-foot {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 20px;
+      border-top: 1px solid var(--cream-deep);
+    }
+    .testi-avatar {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+    }
+    .testi-avatar.a1 { background: linear-gradient(135deg, #F4D5BC, #C97B5A); }
+    .testi-avatar.a2 { background: linear-gradient(135deg, #A8B89F, #6F8068); }
+    .testi-avatar.a3 { background: linear-gradient(135deg, #C9A66B, #8C6E3F); }
+    .testi-meta-name {
+      font-weight: 600;
+      color: var(--brown-deep);
+      font-size: 0.95rem;
+    }
+    .testi-meta-pet {
+      font-size: 0.82rem;
+      color: var(--brown);
+    }
+    .testi-stars {
+      margin-left: auto;
+      color: var(--gold);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+    }
+
+    .testi-progress {
+      margin-top: 60px;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .testi-progress-stat {
+      text-align: center;
+    }
+    .testi-progress-stat .num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 360;
+      color: var(--terracotta);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .testi-progress-stat .label {
+      font-size: 0.85rem;
+      color: var(--brown);
+      margin-top: 8px;
+    }
+
+    /* =====================================================
+       SUBSCRIPTION
+       ===================================================== */
+    .sub { background: var(--cream); }
+
+    .sub-card {
+      background:
+        radial-gradient(ellipse at top right, rgba(244, 213, 188, 0.5), transparent 60%),
+        var(--soft);
+      border-radius: var(--radius-lg);
+      padding: 80px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      box-shadow: var(--shadow-medium);
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 980px) { .sub-card { grid-template-columns: 1fr; padding: 50px 30px; } }
+
+    .sub-features {
+      list-style: none;
+      margin: 28px 0;
+    }
+    .sub-features li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      font-size: 0.98rem;
+      color: var(--brown);
+    }
+    .sub-features .check {
+      width: 28px; height: 28px;
+      background: var(--moss);
+      color: var(--cream);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .sub-pricing {
+      background: var(--brown-deep);
+      color: var(--cream);
+      padding: 40px;
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .sub-pricing::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -20%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(244, 213, 188, 0.2), transparent 60%);
+      border-radius: 50%;
+    }
+    .sub-toggle {
+      display: flex;
+      gap: 6px;
+      background: rgba(255, 253, 249, 0.08);
+      padding: 6px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .sub-toggle button {
+      flex: 1;
+      padding: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(250, 246, 241, 0.7);
+      border-radius: var(--radius-pill);
+      transition: all 0.3s ease;
+    }
+    .sub-toggle button.active {
+      background: var(--cream);
+      color: var(--brown-deep);
+    }
+
+    .sub-price {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 360;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .sub-price small {
+      font-size: 1rem;
+      font-family: var(--font-body);
+      font-weight: 500;
+      opacity: 0.7;
+      margin-left: 4px;
+    }
+    .sub-savings {
+      font-size: 0.9rem;
+      color: var(--peach);
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .sub-deliver {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      opacity: 0.75;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .sub-cta {
+      width: 100%;
+      background: var(--cream);
+      color: var(--brown-deep);
+      padding: 16px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.4s var(--ease-out);
+      position: relative;
+      z-index: 1;
+    }
+    .sub-cta:hover {
+      background: var(--terracotta);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    /* =====================================================
+       TRUST
+       ===================================================== */
+    .trust { background: var(--cream-deep); padding: 100px 24px; }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 980px) { .trust-row { grid-template-columns: repeat(2, 1fr); } }
+
+    .trust-item {
+      text-align: center;
+      padding: 30px 20px;
+      transition: transform 0.3s var(--ease-out);
+    }
+    .trust-item:hover { transform: translateY(-4px); }
+    .trust-item-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 16px;
+      background: var(--soft);
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      box-shadow: var(--shadow-soft);
+    }
+    .trust-item h4 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 1.1rem;
+      color: var(--brown-deep);
+      margin-bottom: 4px;
+    }
+    .trust-item p {
+      font-size: 0.85rem;
+      color: var(--brown);
+    }
+
+    /* =====================================================
+       QUIZ CTA
+       ===================================================== */
+    .quiz-cta {
+      background: linear-gradient(135deg, var(--terracotta), var(--clay));
+      color: var(--cream);
+      padding: 100px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .quiz-cta::before, .quiz-cta::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 253, 249, 0.15), transparent 60%);
+    }
+    .quiz-cta::before { top: -200px; left: -100px; }
+    .quiz-cta::after { bottom: -200px; right: -100px; }
+
+    .quiz-cta-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .quiz-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 340;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .quiz-cta p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 36px;
+      max-width: 520px;
+      margin-left: auto; margin-right: auto;
+    }
+    .quiz-cta .btn-primary {
+      background: var(--cream);
+      color: var(--brown-deep);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    }
+    .quiz-cta .btn-primary::before { display: none; }
+    .quiz-cta .btn-primary:hover { background: var(--brown-deep); color: var(--cream); }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+    .footer {
+      background: var(--brown-deep);
+      color: var(--cream);
+      padding: 80px 24px 40px;
+    }
+    .footer-grid {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 50px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(250, 246, 241, 0.1);
+    }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; } }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.16em;
+      margin-bottom: 16px;
+    }
+    .footer-tag {
+      font-size: 0.95rem;
+      opacity: 0.7;
+      margin-bottom: 24px;
+      max-width: 320px;
+      line-height: 1.55;
+    }
+    .footer-newsletter {
+      display: flex;
+      gap: 8px;
+      max-width: 360px;
+      background: rgba(250, 246, 241, 0.08);
+      padding: 6px;
+      border-radius: var(--radius-pill);
+    }
+    .footer-newsletter input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 12px 16px;
+      color: var(--cream);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .footer-newsletter input::placeholder { color: rgba(250, 246, 241, 0.5); }
+    .footer-newsletter button {
+      background: var(--cream);
+      color: var(--brown-deep);
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+    }
+    .footer-newsletter button:hover { background: var(--peach); }
+
+    .footer h5 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 400;
+      margin-bottom: 18px;
+      letter-spacing: 0.02em;
+    }
+    .footer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.92rem;
+      opacity: 0.75;
+    }
+    .footer-list a:hover { opacity: 1; }
+    .footer-bottom {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.82rem;
+      opacity: 0.6;
+    }
+
+    /* =====================================================
+       QUIZ MODAL
+       ===================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(62, 42, 31, 0.55);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--ease-out);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      max-width: 560px;
+      width: 100%;
+      padding: 50px 40px;
+      transform: scale(0.92);
+      transition: transform 0.5s var(--ease-spring);
+      box-shadow: var(--shadow-deep);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--cream-deep);
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      color: var(--brown);
+      transition: all 0.3s ease;
+    }
+    .modal-close:hover { background: var(--peach); color: var(--brown-deep); }
+
+    .quiz-step { display: none; }
+    .quiz-step.active { display: block; animation: stepIn 0.5s var(--ease-out); }
+    @keyframes stepIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .quiz-progress {
+      height: 4px;
+      background: var(--cream-deep);
+      border-radius: 999px;
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: var(--terracotta);
+      width: 25%;
+      transition: width 0.6s var(--ease-out);
+      border-radius: 999px;
+    }
+
+    .quiz-q-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 10px;
+    }
+    .quiz-q {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 380;
+      letter-spacing: -0.01em;
+      color: var(--brown-deep);
+      margin-bottom: 24px;
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .quiz-opt {
+      padding: 18px;
+      background: var(--soft);
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: none;
+      text-align: center;
+      transition: all 0.3s var(--ease-out);
+      font-size: 0.95rem;
+      color: var(--brown-deep);
+      font-weight: 500;
+    }
+    .quiz-opt:hover {
+      border-color: var(--terracotta);
+      transform: translateY(-2px);
+    }
+    .quiz-opt.selected {
+      background: var(--terracotta);
+      color: var(--cream);
+      border-color: var(--terracotta);
+    }
+    .quiz-opt-emoji {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .quiz-nav button {
+      padding: 14px 24px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: all 0.3s ease;
+    }
+    .quiz-back {
+      background: var(--cream-deep);
+      color: var(--brown);
+    }
+    .quiz-next {
+      background: var(--brown-deep);
+      color: var(--cream);
+      margin-left: auto;
+    }
+    .quiz-next:hover { background: var(--terracotta); }
+    .quiz-back:hover { background: var(--tan); }
+
+    .quiz-result {
+      text-align: center;
+    }
+    .quiz-result-bag {
+      width: 120px; height: 170px;
+      margin: 0 auto 24px;
+      background: linear-gradient(155deg, var(--terracotta), var(--clay));
+      border-radius: 18px 18px 16px 16px;
+      box-shadow: var(--shadow-deep);
+      display: grid;
+      place-items: center;
+      color: var(--cream);
+      font-family: var(--font-display);
+      letter-spacing: 0.16em;
+      animation: resultBob 3s ease-in-out infinite;
+    }
+    @keyframes resultBob {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    /* =====================================================
+       ADD-TO-CART FLY-OUT
+       ===================================================== */
+    .fly-kibble {
+      position: fixed;
+      pointer-events: none;
+      z-index: 500;
+      width: 14px; height: 14px;
+      background: radial-gradient(circle at 30% 30%, var(--terracotta), var(--brown));
+      border-radius: 50%;
+      box-shadow: 0 4px 8px rgba(62,42,31,0.3);
+      transition: all 0.8s cubic-bezier(0.5, -0.5, 0.5, 1.5);
+    }
+
+    /* =====================================================
+       UTILITY ANIMATIONS
+       ===================================================== */
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+
+  </style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- =====================================================
+     NAV
+     ===================================================== -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <span class="dot"></span>
+    NUZZLE
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#ingredients">Nutrition</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#sub">Subscribe</a></li>
+    <li><a href="#" data-quiz>Pet Quiz</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#products" class="btn btn-ghost" style="padding: 12px 20px; font-size: 0.85rem;">
+      <span>Shop now</span>
+    </a>
+    <button class="nav-cart" aria-label="Cart">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <span class="nav-cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+<section class="hero" id="hero">
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+  <div class="hero-badge b1">
+    <div class="icon green">🌿</div>
+    <div>
+      <div style="font-weight: 600; color: var(--brown-deep);">Real meat first</div>
+      <div style="opacity: 0.7; font-size: 0.78rem;">No fillers. Ever.</div>
+    </div>
+  </div>
+  <div class="hero-badge b2">
+    <div class="icon">🐾</div>
+    <div>
+      <div style="font-weight: 600; color: var(--brown-deep);">38,000+ pets fed</div>
+      <div style="opacity: 0.7; font-size: 0.78rem;">across India</div>
+    </div>
+  </div>
+  <div class="hero-badge b3">
+    <div class="icon gold">🏅</div>
+    <div>
+      <div style="font-weight: 600; color: var(--brown-deep);">Vet-formulated</div>
+      <div style="opacity: 0.7; font-size: 0.78rem;">AAFCO-aligned</div>
+    </div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="badge"></span>
+        New · Slow-cooked recipes
+      </div>
+      <h1>
+        <span class="word">Feed</span>
+        <span class="word">them</span>
+        <span class="word">like</span>
+        <span class="word">they're</span>
+        <span class="word"><em>family.</em></span>
+      </h1>
+      <p>Slow-cooked, vet-formulated nutrition made from real meat, garden vegetables, and a quiet kind of love. For the family member who never asks for seconds — but deserves them.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn btn-primary">
+          <span>Shop nutrition</span>
+          <span class="btn-arrow">→</span>
+        </a>
+        <button class="btn btn-ghost" data-quiz>
+          <span>Take the pet quiz</span>
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">93%</div>
+          <div class="hero-stat-label">visibly healthier in 6 weeks</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">4.9</div>
+          <div class="hero-stat-label">from 12,400+ reviews</div>
+        </div>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-cue-text">Scroll</div>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- =====================================================
+     WHY THIS BRAND
+     ===================================================== -->
+<section class="section why">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow reveal">Our promise</div>
+      <h2 class="section-title reveal">Three things we won't <em>compromise</em> on.</h2>
+      <p class="section-sub reveal">Premium pet food shouldn't be a marketing claim. It should be a recipe — short, honest, and answerable to a vet.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal stagger-1">
+        <div class="tag">🥩</div>
+        <div class="why-card-num">01</div>
+        <h3>Real ingredients first</h3>
+        <p>Free-range chicken, wild-caught salmon, organic sweet potato. The first five ingredients are food you'd recognize on a kitchen counter.</p>
+      </div>
+      <div class="why-card reveal stagger-2">
+        <div class="tag">🧪</div>
+        <div class="why-card-num">02</div>
+        <h3>Vet-formulated, not assembled</h3>
+        <p>Every recipe is built by a board-certified veterinary nutritionist for life-stage, breed-size, and energy needs. Not by a marketing team.</p>
+      </div>
+      <div class="why-card reveal stagger-3">
+        <div class="tag">🌱</div>
+        <div class="why-card-num">03</div>
+        <h3>Made small, made fresh</h3>
+        <p>Slow-cooked in small batches outside Bengaluru. Each bag is dated, tested, and shipped within 14 days of cooking.</p>
+      </div>
+    </div>
+
+    <div class="transformation reveal">
+      <div class="transformation-grid">
+        <div class="pet-state before">
+          <div class="pet-state-orb">😔</div>
+          <h4>Before</h4>
+          <div class="pet-state-meta">Dull coat · low energy · upset tummy</div>
+        </div>
+        <div class="arrow-icon">→</div>
+        <div class="pet-state after">
+          <div class="pet-state-orb">✨</div>
+          <h4>After 6 weeks on Nuzzle</h4>
+          <div class="pet-state-meta">Glossy coat · steady energy · happy gut</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     PRODUCTS
+     ===================================================== -->
+<section class="section products" id="products">
+  <div class="container">
+    <div class="products-head">
+      <div>
+        <div class="eyebrow reveal">The pantry</div>
+        <h2 class="section-title reveal" style="margin-top: 14px;">Six recipes. <em>Zero shortcuts.</em></h2>
+      </div>
+      <div class="filter-bar reveal" id="filterBar">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="dog">Dogs</button>
+        <button data-filter="cat">Cats</button>
+        <button data-filter="puppy">Puppies</button>
+        <button data-filter="senior">Senior</button>
+      </div>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+
+      <article class="product-card reveal stagger-1" data-cat="dog">
+        <span class="product-tag best">Bestseller</span>
+        <div class="product-image">
+          <div class="product-bag sunset">
+            <div class="product-bag-label">
+              <div class="brand">NUZZLE</div>
+              <div class="line"></div>
+              <div class="variant">Slow-cooked Chicken</div>
+              <div class="weight">NET WT · 5KG</div>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-meta"><span>Adult dog</span><span>All breeds</span></div>
+          <h3>Chicken & Sweet Potato</h3>
+          <p class="product-desc">Free-range chicken, slow-cooked with garden sweet potato and pumpkin.</p>
+          <div class="product-foot">
+            <div class="product-price">₹2,490<small>/ 5kg</small></div>
+            <button class="add-btn" data-add aria-label="Add">+</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal stagger-2" data-cat="dog">
+        <span class="product-tag new">New</span>
+        <div class="product-image">
+          <div class="product-bag ocean">
+            <div class="product-bag-label">
+              <div class="brand">NUZZLE</div>
+              <div class="line"></div>
+              <div class="variant">Wild-caught Salmon</div>
+              <div class="weight">NET WT · 5KG</div>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-meta"><span>Adult dog</span><span>Sensitive skin</span></div>
+          <h3>Salmon & Brown Rice</h3>
+          <p class="product-desc">Omega-3 rich wild salmon for shinier coats and happier joints.</p>
+          <div class="product-foot">
+            <div class="product-price">₹2,790<small>/ 5kg</small></div>
+            <button class="add-btn" data-add aria-label="Add">+</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal stagger-3" data-cat="dog">
+        <div class="product-image">
+          <div class="product-bag forest">
+            <div class="product-bag-label">
+              <div class="brand">NUZZLE</div>
+              <div class="line"></div>
+              <div class="variant">Lamb & Garden Greens</div>
+              <div class="weight">NET WT · 5KG</div>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-meta"><span>Adult dog</span><span>High protein</span></div>
+          <h3>Lamb & Garden Greens</h3>
+          <p class="product-desc">Pasture-raised lamb with kale, spinach, and a touch of turmeric.</p>
+          <div class="product-foot">
+            <div class="product-price">₹2,890<small>/ 5kg</small></div>
+            <button class="add-btn" data-add aria-label="Add">+</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal stagger-1" data-cat="cat">
+        <div class="product-image">
+          <div class="product-bag berry">
+            <div class="product-bag-label">
+              <div class="brand">NUZZLE</div>
+              <div class="line"></div>
+              <div class="variant">Tuna & Garden Pea</div>
+              <div class="weight">NET WT · 2KG</div>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-meta"><span>Adult cat</span><span>Indoor</span></div>
+          <h3>Tuna & Garden Pea</h3>
+          <p class="product-desc">Sustainably caught tuna for indoor cats who deserve a five-star menu.</p>
+          <div class="product-foot">
+            <div class="product-price">₹1,690<small>/ 2kg</small></div>
+            <button class="add-btn" data-add aria-label="Add">+</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal stagger-2" data-cat="puppy">
+        <span class="product-tag new">New</span>
+        <div class="product-image">
+          <div class="product-bag cream">
+            <div class="product-bag-label">
+              <div class="brand">NUZZLE</div>
+              <div class="line"></div>
+              <div class="variant">Puppy · Chicken Stew</div>
+              <div class="weight">NET WT · 3KG</div>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-meta"><span>Puppy</span><span>2-12 months</span></div>
+          <h3>Puppy Chicken Stew</h3>
+          <p class="product-desc">DHA-rich recipe for growing brains, growing bodies, growing chaos.</p>
+          <div class="product-foot">
+            <div class="product-price">₹1,990<small>/ 3kg</small></div>
+            <button class="add-btn" data-add aria-label="Add">+</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card reveal stagger-3" data-cat="senior">
+        <div class="product-image">
+          <div class="product-bag golden">
+            <div class="product-bag-label">
+              <div class="brand">NUZZLE</div>
+              <div class="line"></div>
+              <div class="variant">Senior · Lamb & Rice</div>
+              <div class="weight">NET WT · 4KG</div>
+            </div>
+          </div>
+        </div>
+        <div class="product-info">
+          <div class="product-meta"><span>Senior dog</span><span>Joint support</span></div>
+          <h3>Senior Lamb & Rice</h3>
+          <p class="product-desc">Glucosamine and chondroitin for older legs that still chase tennis balls.</p>
+          <div class="product-foot">
+            <div class="product-price">₹2,690<small>/ 4kg</small></div>
+            <button class="add-btn" data-add aria-label="Add">+</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     INGREDIENTS
+     ===================================================== -->
+<section class="section ingredients" id="ingredients">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow reveal">Ingredient transparency</div>
+      <h2 class="section-title reveal">Every kibble. <em>Open kitchen.</em></h2>
+      <p class="section-sub reveal">Tap the recipe to see exactly what's inside — and what isn't. We don't hide behind "meat meal" or "natural flavors."</p>
+    </div>
+
+    <div class="ing-grid">
+      <div class="ing-stage reveal">
+        <div class="ing-orb"></div>
+        <button class="ing-pin p1" aria-label="Chicken">
+          <span class="dot"></span>
+          <span class="label">42% Free-range chicken</span>
+        </button>
+        <button class="ing-pin p2" aria-label="Sweet potato">
+          <span class="dot"></span>
+          <span class="label">18% Sweet potato</span>
+        </button>
+        <button class="ing-pin p3" aria-label="Pumpkin">
+          <span class="dot"></span>
+          <span class="label">9% Pumpkin & flaxseed</span>
+        </button>
+        <button class="ing-pin p4" aria-label="Probiotics">
+          <span class="dot"></span>
+          <span class="label">Live probiotics</span>
+        </button>
+      </div>
+
+      <ul class="ing-list reveal">
+        <li class="ing-item">
+          <div class="ing-item-icon">🐔</div>
+          <div class="ing-item-text">
+            <h4>Free-range chicken</h4>
+            <p>Sourced from Karnataka farms. Hormone-free, antibiotic-free.</p>
+          </div>
+          <div class="ing-item-pct">42%</div>
+        </li>
+        <li class="ing-item">
+          <div class="ing-item-icon">🍠</div>
+          <div class="ing-item-text">
+            <h4>Organic sweet potato</h4>
+            <p>Slow-roasted for natural sweetness and steady energy.</p>
+          </div>
+          <div class="ing-item-pct">18%</div>
+        </li>
+        <li class="ing-item">
+          <div class="ing-item-icon">🎃</div>
+          <div class="ing-item-text">
+            <h4>Pumpkin & flaxseed</h4>
+            <p>For gentle digestion and a coat that catches light.</p>
+          </div>
+          <div class="ing-item-pct">9%</div>
+        </li>
+        <li class="ing-item">
+          <div class="ing-item-icon">🌿</div>
+          <div class="ing-item-text">
+            <h4>Turmeric, kale, blueberry</h4>
+            <p>Real superfoods. Real anti-inflammatory benefit.</p>
+          </div>
+          <div class="ing-item-pct">6%</div>
+        </li>
+        <li class="ing-item">
+          <div class="ing-item-icon">✨</div>
+          <div class="ing-item-text">
+            <h4>Live probiotics</h4>
+            <p>5 strains, 100M CFU per serving for happier guts.</p>
+          </div>
+          <div class="ing-item-pct">+</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="vs-row reveal">
+      <div class="vs-card real">
+        <div class="vs-card-title">In every Nuzzle bag</div>
+        <ul class="vs-card-list">
+          <li>Real, named meat as #1 ingredient</li>
+          <li>Whole vegetables you can pronounce</li>
+          <li>Cold-pressed oils, fresh fish oil</li>
+          <li>Live probiotics, prebiotic fiber</li>
+        </ul>
+      </div>
+      <div class="vs-card fillers">
+        <div class="vs-card-title">Never, not once</div>
+        <ul class="vs-card-list">
+          <li>Corn, soy, wheat fillers</li>
+          <li>"Meat meal" or "by-product"</li>
+          <li>Artificial colors, flavors, BHA/BHT</li>
+          <li>Mystery "natural flavoring"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     TESTIMONIALS
+     ===================================================== -->
+<section class="section testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow reveal">Pet stories</div>
+      <h2 class="section-title reveal">Tail wags, <em>louder than reviews.</em></h2>
+      <p class="section-sub reveal">From skin issues to picky eaters, here's what changed in six weeks.</p>
+    </div>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal stagger-1">
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text">Milo had constant tummy issues for two years. Six weeks on Nuzzle and he's a different dog — his coat is unreal, and we don't dread mealtime anymore.</p>
+        <div class="testi-foot">
+          <div class="testi-avatar a1">🐕</div>
+          <div>
+            <div class="testi-meta-name">Ananya R.</div>
+            <div class="testi-meta-pet">Milo · Golden Retriever, 4</div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal stagger-2">
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text">Our vet noticed the difference before we did. Cleaner teeth, better stool, and the kind of energy we hadn't seen since she was a pup. Worth every rupee.</p>
+        <div class="testi-foot">
+          <div class="testi-avatar a2">🐾</div>
+          <div>
+            <div class="testi-meta-name">Rohan & Priya M.</div>
+            <div class="testi-meta-pet">Pepper · Labrador, 7</div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal stagger-3">
+        <div class="testi-quote-mark">"</div>
+        <p class="testi-text">I've tried every "premium" cat food on the shelf. Mishti rejected them all. Nuzzle? She actually waits by the bowl. That's the highest review a cat can give.</p>
+        <div class="testi-foot">
+          <div class="testi-avatar a3">🐈</div>
+          <div>
+            <div class="testi-meta-name">Devika S.</div>
+            <div class="testi-meta-pet">Mishti · Persian, 3</div>
+          </div>
+          <div class="testi-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-progress reveal">
+      <div class="testi-progress-stat">
+        <div class="num">38k+</div>
+        <div class="label">Pets eating Nuzzle</div>
+      </div>
+      <div class="testi-progress-stat">
+        <div class="num">93%</div>
+        <div class="label">Visibly healthier coat</div>
+      </div>
+      <div class="testi-progress-stat">
+        <div class="num">4.9</div>
+        <div class="label">Avg rating · 12,400 reviews</div>
+      </div>
+      <div class="testi-progress-stat">
+        <div class="num">87%</div>
+        <div class="label">Re-order rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     SUBSCRIPTION
+     ===================================================== -->
+<section class="section sub" id="sub">
+  <div class="container">
+    <div class="sub-card reveal">
+      <div>
+        <div class="eyebrow">Subscribe & save</div>
+        <h2 class="section-title" style="margin-top: 14px;">Set it once. <em>Then forget the bag is empty.</em></h2>
+        <p style="color: var(--brown); margin-bottom: 24px;">A bag of Nuzzle, delivered the day you'd otherwise run out. No commitment, no penalty, free shipping always.</p>
+        <ul class="sub-features">
+          <li><span class="check">✓</span> Free shipping. Always.</li>
+          <li><span class="check">✓</span> Save 15% vs one-time.</li>
+          <li><span class="check">✓</span> Skip, swap, or cancel — one tap.</li>
+          <li><span class="check">✓</span> Your dedicated nutrition concierge.</li>
+        </ul>
+      </div>
+
+      <div class="sub-pricing">
+        <div class="sub-toggle" id="subToggle">
+          <button class="active" data-plan="monthly">Monthly</button>
+          <button data-plan="bi">Every 6 weeks</button>
+        </div>
+        <div class="sub-price"><span id="subPrice">2,116</span><small>₹/month</small></div>
+        <div class="sub-savings" id="subSavings">You save ₹374/month vs one-time</div>
+        <div class="sub-deliver">
+          <span>📦</span>
+          Next delivery: <strong style="color: var(--cream); font-weight: 600; margin-left: 4px;">May 15</strong>
+        </div>
+        <button class="sub-cta">Start subscription →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     TRUST
+     ===================================================== -->
+<section class="trust">
+  <div class="container">
+    <div class="section-head center" style="margin-bottom: 50px;">
+      <div class="eyebrow reveal">Independently certified</div>
+      <h2 class="section-title reveal" style="font-size: clamp(1.6rem, 3vw, 2.4rem);">Backed by <em>science, not slogans.</em></h2>
+    </div>
+    <div class="trust-row">
+      <div class="trust-item reveal stagger-1">
+        <div class="trust-item-icon">🏥</div>
+        <h4>Vet-formulated</h4>
+        <p>Board-certified DVM, MS</p>
+      </div>
+      <div class="trust-item reveal stagger-2">
+        <div class="trust-item-icon">🌿</div>
+        <h4>Ethically sourced</h4>
+        <p>Audited Indian farms</p>
+      </div>
+      <div class="trust-item reveal stagger-3">
+        <div class="trust-item-icon">🔬</div>
+        <h4>AAFCO-aligned</h4>
+        <p>Lab-tested every batch</p>
+      </div>
+      <div class="trust-item reveal stagger-4">
+        <div class="trust-item-icon">🌎</div>
+        <h4>Carbon-balanced</h4>
+        <p>Compostable packaging</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================
+     QUIZ CTA
+     ===================================================== -->
+<section class="quiz-cta">
+  <div class="quiz-cta-inner">
+    <h2>Not sure where to start?</h2>
+    <p>Tell us about your pet in 60 seconds. We'll match the recipe, portion, and delivery rhythm to the only family member who never asks for it.</p>
+    <button class="btn btn-primary" data-quiz>
+      <span>Build my pet's diet</span>
+      <span class="btn-arrow">→</span>
+    </button>
+  </div>
+</section>
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">NUZZLE</div>
+      <div class="footer-tag">Slow-cooked, vet-formulated nutrition. Made for the family member who never asks.</div>
+      <form class="footer-newsletter" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('button').textContent='Subscribed ✓';">
+        <input type="email" placeholder="Your email" required />
+        <button type="submit">Join</button>
+      </form>
+    </div>
+    <div>
+      <h5>Shop</h5>
+      <ul class="footer-list">
+        <li><a href="#">Dogs</a></li>
+        <li><a href="#">Cats</a></li>
+        <li><a href="#">Puppies</a></li>
+        <li><a href="#">Senior</a></li>
+        <li><a href="#">Treats</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Learn</h5>
+      <ul class="footer-list">
+        <li><a href="#">Nutrition guide</a></li>
+        <li><a href="#">Ingredient library</a></li>
+        <li><a href="#">Pet quiz</a></li>
+        <li><a href="#">Stories</a></li>
+        <li><a href="#">Vet partners</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Help</h5>
+      <ul class="footer-list">
+        <li><a href="#">Subscription</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Nuzzle Pet Nutrition · Bengaluru, India</div>
+    <div>Privacy · Terms · Cookies</div>
+  </div>
+</footer>
+
+<!-- =====================================================
+     QUIZ MODAL
+     ===================================================== -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal">
+    <button class="modal-close" id="quizClose">✕</button>
+
+    <div class="quiz-progress">
+      <div class="quiz-progress-fill" id="quizFill"></div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="quiz-step active" data-step="1">
+      <div class="quiz-q-eyebrow">Question 1 of 4</div>
+      <div class="quiz-q">Who are we cooking for?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" data-val="dog"><span class="quiz-opt-emoji">🐕</span>A dog</button>
+        <button class="quiz-opt" data-val="cat"><span class="quiz-opt-emoji">🐈</span>A cat</button>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-next" data-next>Continue →</button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="quiz-step" data-step="2">
+      <div class="quiz-q-eyebrow">Question 2 of 4</div>
+      <div class="quiz-q">How old are they?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" data-val="puppy"><span class="quiz-opt-emoji">🍼</span>Under 1 year</button>
+        <button class="quiz-opt" data-val="adult"><span class="quiz-opt-emoji">✨</span>1–7 years</button>
+        <button class="quiz-opt" data-val="senior"><span class="quiz-opt-emoji">🌟</span>7+ years</button>
+        <button class="quiz-opt" data-val="any"><span class="quiz-opt-emoji">🤷</span>Not sure</button>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" data-back>← Back</button>
+        <button class="quiz-next" data-next>Continue →</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="quiz-step" data-step="3">
+      <div class="quiz-q-eyebrow">Question 3 of 4</div>
+      <div class="quiz-q">What matters most?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" data-val="coat"><span class="quiz-opt-emoji">✨</span>Skin & coat</button>
+        <button class="quiz-opt" data-val="gut"><span class="quiz-opt-emoji">💚</span>Gut health</button>
+        <button class="quiz-opt" data-val="energy"><span class="quiz-opt-emoji">⚡</span>Energy</button>
+        <button class="quiz-opt" data-val="joints"><span class="quiz-opt-emoji">🦴</span>Joints</button>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" data-back>← Back</button>
+        <button class="quiz-next" data-next>Continue →</button>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="quiz-step" data-step="4">
+      <div class="quiz-q-eyebrow">Question 4 of 4</div>
+      <div class="quiz-q">Any picky-eater warnings?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" data-val="picky"><span class="quiz-opt-emoji">🙄</span>Very picky</button>
+        <button class="quiz-opt" data-val="ok"><span class="quiz-opt-emoji">😊</span>Eats most things</button>
+        <button class="quiz-opt" data-val="any"><span class="quiz-opt-emoji">🐾</span>Eats anything</button>
+        <button class="quiz-opt" data-val="sensi"><span class="quiz-opt-emoji">🧪</span>Sensitive tummy</button>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" data-back>← Back</button>
+        <button class="quiz-next" data-next>See my plan →</button>
+      </div>
+    </div>
+
+    <!-- Step 5 result -->
+    <div class="quiz-step" data-step="5">
+      <div class="quiz-result">
+        <div class="quiz-result-bag">NUZZLE</div>
+        <div class="quiz-q-eyebrow">Your pet's match</div>
+        <div class="quiz-q" id="quizResultName">Slow-cooked Chicken & Sweet Potato</div>
+        <p style="color: var(--brown); margin-bottom: 24px;" id="quizResultDesc">Free-range chicken, slow-cooked with garden sweet potato — tuned to skin & coat, gut health, and energy. Delivered every 4 weeks.</p>
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" id="quizCheckout">
+          <span>Start with this recipe — ₹2,116/mo</span>
+        </button>
+        <button class="quiz-back" style="margin-top: 12px;" data-back>← Tweak my answers</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =====================================================
+     SCRIPTS
+     ===================================================== -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+
+<script type="module">
+  import * as THREE from 'three';
+
+  /* =====================================================
+     HERO 3D SCENE — stylized pet & food bowl
+     ===================================================== */
+  (function initHero() {
+    const canvas = document.getElementById('heroCanvas');
+    if (!canvas) return;
+
+    const scene = new THREE.Scene();
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.set(0, 1.2, 6.5);
+    camera.lookAt(0, 0.4, 0);
+
+    function resize() {
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    /* Lighting — warm, soft */
+    const hemi = new THREE.HemisphereLight(0xfaf6f1, 0xc97b5a, 0.55);
+    scene.add(hemi);
+
+    const key = new THREE.DirectionalLight(0xffe9d4, 1.4);
+    key.position.set(3, 5, 4);
+    key.castShadow = true;
+    key.shadow.mapSize.set(2048, 2048);
+    key.shadow.camera.left = -5;
+    key.shadow.camera.right = 5;
+    key.shadow.camera.top = 5;
+    key.shadow.camera.bottom = -5;
+    key.shadow.bias = -0.0005;
+    scene.add(key);
+
+    const rim = new THREE.DirectionalLight(0xc97b5a, 0.6);
+    rim.position.set(-4, 3, -2);
+    scene.add(rim);
+
+    const fill = new THREE.PointLight(0xf4d5bc, 0.4, 12);
+    fill.position.set(-2, 1.5, 3);
+    scene.add(fill);
+
+    /* Soft ground (catches shadow) */
+    const groundGeom = new THREE.CircleGeometry(8, 64);
+    const groundMat = new THREE.ShadowMaterial({ opacity: 0.18, color: 0x3e2a1f });
+    const ground = new THREE.Mesh(groundGeom, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -0.85;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    /* MATERIALS */
+    const matFur = new THREE.MeshStandardMaterial({
+      color: 0xe8c9a8,
+      roughness: 0.78,
+      metalness: 0,
+      flatShading: false
+    });
+    const matFurDark = new THREE.MeshStandardMaterial({
+      color: 0xb89373,
+      roughness: 0.78
+    });
+    const matNose = new THREE.MeshStandardMaterial({
+      color: 0x3e2a1f,
+      roughness: 0.4,
+      metalness: 0.1
+    });
+    const matEye = new THREE.MeshStandardMaterial({
+      color: 0x2a1f18,
+      roughness: 0.2
+    });
+    const matBowl = new THREE.MeshStandardMaterial({
+      color: 0xc97b5a,
+      roughness: 0.35,
+      metalness: 0.08
+    });
+    const matBowlInner = new THREE.MeshStandardMaterial({
+      color: 0x8a4a33,
+      roughness: 0.5
+    });
+    const matKibble = new THREE.MeshStandardMaterial({
+      color: 0xc9a66b,
+      roughness: 0.7
+    });
+    const matKibbleDark = new THREE.MeshStandardMaterial({
+      color: 0x8c6e3f,
+      roughness: 0.7
+    });
+
+    /* ========== DOG (stylized) ========== */
+    const dogGroup = new THREE.Group();
+    scene.add(dogGroup);
+    dogGroup.position.set(0.5, 0, 0);
+
+    // Body — capsule
+    const bodyGeom = new THREE.CapsuleGeometry(0.55, 0.7, 12, 24);
+    const body = new THREE.Mesh(bodyGeom, matFur);
+    body.rotation.z = Math.PI / 2;
+    body.position.set(-0.3, -0.05, 0);
+    body.castShadow = true; body.receiveShadow = true;
+    dogGroup.add(body);
+
+    // Chest
+    const chest = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 20), matFurDark);
+    chest.position.set(0.25, -0.1, 0);
+    chest.scale.set(0.9, 1, 1);
+    chest.castShadow = true;
+    dogGroup.add(chest);
+
+    // Head
+    const head = new THREE.Group();
+    head.position.set(0.55, 0.4, 0);
+    dogGroup.add(head);
+
+    const headBall = new THREE.Mesh(new THREE.SphereGeometry(0.42, 32, 28), matFur);
+    headBall.castShadow = true;
+    head.add(headBall);
+
+    // Snout
+    const snout = new THREE.Mesh(new THREE.SphereGeometry(0.22, 24, 20), matFurDark);
+    snout.scale.set(1.1, 0.85, 1);
+    snout.position.set(0.32, -0.08, 0);
+    snout.castShadow = true;
+    head.add(snout);
+
+    // Nose
+    const nose = new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 16), matNose);
+    nose.position.set(0.52, -0.04, 0);
+    head.add(nose);
+
+    // Eyes
+    const eyeGeom = new THREE.SphereGeometry(0.045, 16, 16);
+    const eyeL = new THREE.Mesh(eyeGeom, matEye);
+    const eyeR = new THREE.Mesh(eyeGeom, matEye);
+    eyeL.position.set(0.27, 0.12, 0.18);
+    eyeR.position.set(0.27, 0.12, -0.18);
+    head.add(eyeL); head.add(eyeR);
+
+    // Eye highlights (small white dot)
+    const matHighlight = new THREE.MeshBasicMaterial({ color: 0xfffdf9 });
+    const hlGeom = new THREE.SphereGeometry(0.012, 8, 8);
+    const hlL = new THREE.Mesh(hlGeom, matHighlight);
+    const hlR = new THREE.Mesh(hlGeom, matHighlight);
+    hlL.position.set(0.31, 0.135, 0.205);
+    hlR.position.set(0.31, 0.135, -0.155);
+    head.add(hlL); head.add(hlR);
+
+    // Ears (floppy)
+    const earGeom = new THREE.SphereGeometry(0.18, 16, 16);
+    const earL = new THREE.Mesh(earGeom, matFurDark);
+    earL.scale.set(0.5, 1.1, 0.85);
+    earL.position.set(-0.05, 0.18, 0.34);
+    earL.rotation.set(0.3, 0, -0.3);
+    earL.castShadow = true;
+    const earR = earL.clone();
+    earR.position.z = -0.34;
+    earR.rotation.set(-0.3, 0, -0.3);
+    head.add(earL); head.add(earR);
+
+    // Legs (4 cylinders)
+    const legGeom = new THREE.CylinderGeometry(0.12, 0.14, 0.55, 16);
+    const legPositions = [
+      [0.25, -0.55, 0.3],
+      [0.25, -0.55, -0.3],
+      [-0.55, -0.55, 0.3],
+      [-0.55, -0.55, -0.3]
+    ];
+    legPositions.forEach(p => {
+      const leg = new THREE.Mesh(legGeom, matFurDark);
+      leg.position.set(...p);
+      leg.castShadow = true;
+      dogGroup.add(leg);
+      // paw
+      const paw = new THREE.Mesh(new THREE.SphereGeometry(0.15, 16, 12), matFurDark);
+      paw.scale.set(1, 0.5, 1.05);
+      paw.position.set(p[0], p[1] - 0.28, p[2]);
+      dogGroup.add(paw);
+    });
+
+    // Tail
+    const tailGeom = new THREE.CylinderGeometry(0.06, 0.1, 0.6, 12);
+    const tail = new THREE.Mesh(tailGeom, matFur);
+    tail.position.set(-0.85, 0.15, 0);
+    tail.rotation.z = -0.7;
+    tail.geometry.translate(0, 0.3, 0);
+    tail.position.set(-0.85, -0.05, 0);
+    tail.castShadow = true;
+    dogGroup.add(tail);
+
+    /* ========== BOWL ========== */
+    const bowlGroup = new THREE.Group();
+    bowlGroup.position.set(-1.1, -0.6, 0);
+    scene.add(bowlGroup);
+
+    // Bowl outer (torus + bottom)
+    const bowlBody = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.55, 0.45, 0.3, 32, 1, false),
+      matBowl
+    );
+    bowlBody.castShadow = true; bowlBody.receiveShadow = true;
+    bowlGroup.add(bowlBody);
+
+    // Bowl rim
+    const bowlRim = new THREE.Mesh(
+      new THREE.TorusGeometry(0.55, 0.05, 12, 32),
+      matBowl
+    );
+    bowlRim.rotation.x = Math.PI / 2;
+    bowlRim.position.y = 0.15;
+    bowlGroup.add(bowlRim);
+
+    // Bowl inner
+    const bowlInner = new THREE.Mesh(
+      new THREE.CircleGeometry(0.5, 32),
+      matBowlInner
+    );
+    bowlInner.rotation.x = -Math.PI / 2;
+    bowlInner.position.y = 0.149;
+    bowlGroup.add(bowlInner);
+
+    // Kibble pile in bowl
+    const kibbleInBowl = [];
+    for (let i = 0; i < 12; i++) {
+      const k = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(0.1, 0),
+        i % 2 ? matKibble : matKibbleDark
+      );
+      const angle = (i / 12) * Math.PI * 2;
+      const r = 0.05 + Math.random() * 0.3;
+      k.position.set(Math.cos(angle) * r, 0.18 + Math.random() * 0.05, Math.sin(angle) * r);
+      k.rotation.set(Math.random(), Math.random(), Math.random());
+      k.castShadow = true;
+      bowlGroup.add(k);
+      kibbleInBowl.push(k);
+    }
+
+    /* ========== FLOATING KIBBLE ========== */
+    const floatingKibble = [];
+    for (let i = 0; i < 8; i++) {
+      const k = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(0.08 + Math.random() * 0.04, 0),
+        i % 2 ? matKibble : matKibbleDark
+      );
+      k.userData = {
+        baseX: (Math.random() - 0.5) * 5,
+        baseY: 0.5 + Math.random() * 2,
+        baseZ: (Math.random() - 0.5) * 2 - 0.5,
+        speed: 0.3 + Math.random() * 0.6,
+        offset: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.02
+      };
+      k.position.set(k.userData.baseX, k.userData.baseY, k.userData.baseZ);
+      scene.add(k);
+      floatingKibble.push(k);
+    }
+
+    /* ========== INTERACTION ========== */
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    /* ========== ANIMATION LOOP ========== */
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      // Idle bob — whole dog
+      dogGroup.position.y = Math.sin(t * 1.2) * 0.04;
+      dogGroup.rotation.y = -0.1 + mouseX * 0.15;
+
+      // Head tilt towards mouse
+      head.rotation.y = mouseX * 0.3 - 0.1;
+      head.rotation.x = -mouseY * 0.15;
+      head.rotation.z = Math.sin(t * 1.5) * 0.04;
+
+      // Tail wag
+      tail.rotation.z = -0.7 + Math.sin(t * 5) * 0.4;
+
+      // Ear twitch
+      earL.rotation.z = -0.3 + Math.sin(t * 2.3) * 0.08;
+      earR.rotation.z = -0.3 + Math.sin(t * 2.5 + 0.5) * 0.08;
+
+      // Floating kibble
+      floatingKibble.forEach((k) => {
+        const u = k.userData;
+        k.position.y = u.baseY + Math.sin(t * u.speed + u.offset) * 0.25;
+        k.position.x = u.baseX + Math.cos(t * u.speed * 0.5 + u.offset) * 0.1;
+        k.rotation.x += u.rotSpeed;
+        k.rotation.y += u.rotSpeed * 0.7;
+      });
+
+      // Camera parallax
+      camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.05;
+      camera.position.y += (1.2 - mouseY * 0.2 - camera.position.y) * 0.05;
+      camera.lookAt(0, 0.4, 0);
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  })();
+
+  /* =====================================================
+     CUSTOM CURSOR
+     ===================================================== */
+  (function initCursor() {
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    if (!dot) return;
+
+    let mx = 0, my = 0;
+    let rx = 0, ry = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    });
+
+    function loop() {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    document.querySelectorAll('a, button, .product-card, [data-quiz]').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+  })();
+
+  /* =====================================================
+     SCROLL EFFECTS — reveal + nav
+     ===================================================== */
+  (function initScroll() {
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 24);
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  })();
+
+  /* =====================================================
+     PRODUCT FILTERS
+     ===================================================== */
+  (function initFilters() {
+    const bar = document.getElementById('filterBar');
+    const grid = document.getElementById('productGrid');
+    if (!bar) return;
+
+    bar.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      bar.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      grid.querySelectorAll('.product-card').forEach((card) => {
+        const cat = card.dataset.cat;
+        const show = filter === 'all' || cat === filter;
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        if (show) {
+          card.style.display = '';
+          requestAnimationFrame(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+          });
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(10px) scale(0.97)';
+          setTimeout(() => { card.style.display = 'none'; }, 400);
+        }
+      });
+    });
+  })();
+
+  /* =====================================================
+     ADD-TO-CART — playful kibble fly-out
+     ===================================================== */
+  (function initCart() {
+    const cartCount = document.getElementById('cartCount');
+    const cartBtn = document.querySelector('.nav-cart');
+    let count = 0;
+
+    document.querySelectorAll('[data-add]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const rect = btn.getBoundingClientRect();
+        const cartRect = cartBtn.getBoundingClientRect();
+
+        // Shoot 3 kibble across the screen
+        for (let i = 0; i < 3; i++) {
+          const k = document.createElement('div');
+          k.className = 'fly-kibble';
+          k.style.left = (rect.left + rect.width / 2) + 'px';
+          k.style.top = (rect.top + rect.height / 2) + 'px';
+          k.style.transform = 'translate(-50%, -50%) scale(0)';
+          document.body.appendChild(k);
+
+          const dx = (Math.random() - 0.5) * 60;
+          const dy = -40 - Math.random() * 40;
+
+          requestAnimationFrame(() => {
+            k.style.transitionDelay = (i * 60) + 'ms';
+            k.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1.2) rotate(${Math.random() * 360}deg)`;
+            k.style.opacity = '1';
+          });
+
+          setTimeout(() => {
+            k.style.transition = 'all 0.6s cubic-bezier(0.45, 0, 0.55, 1)';
+            k.style.left = (cartRect.left + cartRect.width / 2) + 'px';
+            k.style.top = (cartRect.top + cartRect.height / 2) + 'px';
+            k.style.transform = 'translate(-50%, -50%) scale(0)';
+            k.style.opacity = '0';
+          }, 360 + i * 60);
+
+          setTimeout(() => k.remove(), 1100 + i * 60);
+        }
+
+        count++;
+        cartCount.textContent = count;
+        cartBtn.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        cartBtn.style.transform = 'rotate(-12deg) scale(1.15)';
+        setTimeout(() => { cartBtn.style.transform = ''; }, 600);
+      });
+    });
+  })();
+
+  /* =====================================================
+     SUB TOGGLE
+     ===================================================== */
+  (function initSub() {
+    const toggle = document.getElementById('subToggle');
+    if (!toggle) return;
+    const priceEl = document.getElementById('subPrice');
+    const savEl = document.getElementById('subSavings');
+
+    toggle.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      toggle.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (btn.dataset.plan === 'monthly') {
+        priceEl.textContent = '2,116';
+        savEl.textContent = 'You save ₹374/month vs one-time';
+      } else {
+        priceEl.textContent = '1,990';
+        savEl.textContent = 'You save ₹500/month vs one-time';
+      }
+    });
+  })();
+
+  /* =====================================================
+     QUIZ
+     ===================================================== */
+  (function initQuiz() {
+    const overlay = document.getElementById('quizModal');
+    const closeBtn = document.getElementById('quizClose');
+    const fill = document.getElementById('quizFill');
+    const steps = overlay.querySelectorAll('.quiz-step');
+    let current = 1;
+    const answers = {};
+
+    function open() {
+      overlay.classList.add('open');
+      goTo(1);
+    }
+    function close() { overlay.classList.remove('open'); }
+    function goTo(n) {
+      current = Math.max(1, Math.min(5, n));
+      steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === current));
+      fill.style.width = ((current / 5) * 100) + '%';
+      if (current === 5) buildResult();
+    }
+
+    function buildResult() {
+      const nameEl = document.getElementById('quizResultName');
+      const descEl = document.getElementById('quizResultDesc');
+      let name = 'Slow-cooked Chicken & Sweet Potato';
+      let desc = 'Free-range chicken, slow-cooked with garden sweet potato. Tuned to your pet\'s answers, delivered every 4 weeks.';
+
+      if (answers[1] === 'cat') {
+        name = 'Tuna & Garden Pea (Cat)';
+        desc = 'Sustainably caught tuna with garden pea — palatable for picky cats, supports skin, gut, and energy.';
+      } else if (answers[2] === 'puppy') {
+        name = 'Puppy Chicken Stew';
+        desc = 'DHA-rich slow-cooked chicken for growing brains, growing bodies, growing chaos.';
+      } else if (answers[2] === 'senior' || answers[3] === 'joints') {
+        name = 'Senior Lamb & Rice';
+        desc = 'Pasture-raised lamb with glucosamine and chondroitin — for older legs that still chase tennis balls.';
+      } else if (answers[3] === 'coat' || answers[4] === 'sensi') {
+        name = 'Salmon & Brown Rice';
+        desc = 'Wild-caught salmon, omega-3 rich, gentle for sensitive tummies and shinier coats.';
+      }
+
+      nameEl.textContent = name;
+      descEl.textContent = desc;
+    }
+
+    document.querySelectorAll('[data-quiz]').forEach(el => {
+      el.addEventListener('click', (e) => { e.preventDefault(); open(); });
+    });
+    closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target.matches('[data-next]')) {
+        goTo(current + 1);
+      }
+      if (e.target.matches('[data-back]')) {
+        goTo(current - 1);
+      }
+      if (e.target.matches('.quiz-opt') || e.target.closest('.quiz-opt')) {
+        const opt = e.target.closest('.quiz-opt');
+        const step = opt.closest('.quiz-step');
+        step.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        answers[Number(step.dataset.step)] = opt.dataset.val;
+      }
+    });
+
+    document.getElementById('quizCheckout').addEventListener('click', () => {
+      close();
+      // simulate add-to-cart
+      const cartCount = document.getElementById('cartCount');
+      cartCount.textContent = Number(cartCount.textContent) + 1;
+    });
+  })();
+
+  /* =====================================================
+     SOFT IDLE — section parallax (subtle)
+     ===================================================== */
+  (function initParallax() {
+    const orb = document.querySelector('.ing-orb');
+    if (!orb) return;
+    window.addEventListener('scroll', () => {
+      const rect = orb.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      const off = (window.innerHeight / 2 - center) * 0.05;
+      orb.style.transform = `translate(-50%, calc(-50% + ${off}px))`;
+    });
+  })();
+</script>
+
+</body>
+</html>
